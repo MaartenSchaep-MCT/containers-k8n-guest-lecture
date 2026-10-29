@@ -1,0 +1,21 @@
+# "App of apps": the only thing you apply by hand.
+# It tells Argo CD to watch the apps/ folder of YOUR repo.
+# Every Application file you push to apps/ then gets installed automatically.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: root
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/MaartenSchaep-MCT/containers-k8n-guest-lecture  # <-- change
+    targetRevision: main
+    path: apps
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true      # delete things you remove from Git
+      selfHeal: true   # undo manual changes in the cluster
