@@ -1,0 +1,4 @@
+# Never commit these: local provider cache and state (state can contain secrets)
+.terraform/
+*.tfstate
+*.tfstate.*
